@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaderboard</title>
+    <style>
+      body {
+        text-align: center;
+      }
+
+      .container {
+        margin: 20px;
+      }
+
+      .box {
+        display: inline-block;
+        width: 100px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin: 5px;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      #score {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Leaderboard</h1>
+    <div class="container">
+      <div class="box" onclick="appendToScore(1)">1</div>
+      <div class="box" onclick="appendToScore(2)">2</div>
+      <div class="box" onclick="appendToScore(3)">3</div>
+    </div>
+    <div class="container">
+      <div class="box" onclick="appendToScore(4)">4</div>
+      <div class="box" onclick="appendToScore(5)">5</div>
+      <div class="box" onclick="appendToScore(6)">6</div>
+    </div>
+    <div class="container">
+      <div class="box" onclick="appendToScore(7)">7</div>
+      <div class="box" onclick="appendToScore(8)">8</div>
+      <div class="box" onclick="appendToScore(9)">9</div>
+    </div>
+    <div class="container">
+      <input
+        type="text"
+        id="score"
+        placeholder="Enter your score"
+      />
+      <button onclick="updateMinMax()">ENTER</button>
+    </div>
+    <div class="container">
+      <div>MIN: <span id="minScore">-</span></div>
+      <div>MAX: <span id="maxScore">-</span></div>
+    </div>
+
+    <script>
+      let currentScore = '';
+
+      function appendToScore(number) {
+        currentScore += number;
+        document.getElementById('score').value = currentScore;
+      }
+
+      function updateMinMax() {
+        const score = parseFloat(currentScore);
+        if (!isNaN(score)) {
+          const minSpan = document.getElementById('minScore');
+          const maxSpan = document.getElementById('maxScore');
+
+          const currentMin = parseFloat(minSpan.textContent);
+          const currentMax = parseFloat(maxSpan.textContent);
+
+          if (isNaN(currentMin) || score < currentMin) {
+            minSpan.textContent = score;
+          }
+          if (isNaN(currentMax) || score > currentMax) {
+            maxSpan.textContent = score;
+          }
+
+          currentScore = '';
+          document.getElementById('score').value = '';
+        }
+      }
+    </script>
+  </body>
+</html>
